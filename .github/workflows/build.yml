@@ -39,3 +39,46 @@ jobs:
           test -f src/ui/jumble
           test -f tests/jumble_tests
           echo "Built ($BUILD_MODE): src/ui/jumble and tests/jumble_tests"
+
+  build-macos:
+    # Builds a macOS app bundle and publishes it as a downloadable artifact.
+    # After the run succeeds, open the run's "Artifacts" tab on Actions
+    # (or the PR's "Artifacts" section) and download
+    # jumble-macos-arm64-release.zip.
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build release
+        run: make -j8
+
+      - name: Verify app bundle
+        run: |
+          test -d src/ui/jumble.app
+          test -x src/ui/jumble.app/Contents/MacOS/jumble
+          echo "Built: src/ui/jumble.app"
+
+      - name: Package artifact
+        run: |
+          # The user needs the .app bundle and the dictionary. Zip them
+          # together into a single artifact. `ditto` preserves resource forks
+          # and permissions better than `zip` for macOS bundles.
+          ditto -c -k --sequesterRsrc \
+            src/ui/jumble.app \
+            jumble-macos-arm64-release.zip
+          zip -q jumble-macos-arm64-release.zip dictionary.txt
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jumble-macos-arm64-release
+          path: jumble-macos-arm64-release.zip
+          if-no-files-found: error
