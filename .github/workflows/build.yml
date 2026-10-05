@@ -90,19 +90,20 @@ jobs:
           test -x src/ui/jumble.app/Contents/MacOS/jumble
           echo "Built: src/ui/jumble.app"
 
-      - name: Package artifact
+      - name: Prepare artifact directory
+        # Create a clean staging directory with the exact structure we want
+        # users to receive. GitHub Actions will zip this once for download.
         run: |
-          # The user needs the .app bundle and the dictionary. Zip them
-          # together into a single artifact. `ditto` preserves resource forks
-          # and permissions better than `zip` for macOS bundles.
-          ditto -c -k --sequesterRsrc \
-            src/ui/jumble.app \
-            jumble-macos-arm64-release.zip
-          zip -q jumble-macos-arm64-release.zip dictionary.txt
+          rm -rf jumble-macos-arm64-release
+          mkdir -p jumble-macos-arm64-release
+          # Copy the .app bundle (ditto preserves resource forks/permissions)
+          ditto src/ui/jumble.app jumble-macos-arm64-release/Jumble.app
+          # Copy dictionary.txt to the root of the artifact
+          cp dictionary.txt jumble-macos-arm64-release/
 
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: jumble-macos-arm64-release
-          path: jumble-macos-arm64-release.zip
+          path: jumble-macos-arm64-release
           if-no-files-found: error
