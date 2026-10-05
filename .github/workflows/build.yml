@@ -63,6 +63,13 @@ jobs:
       - name: Configure release build with qmake
         run: qmake -r Jumble.pro
 
+      - name: Patch Makefiles (remove removed AGL framework)
+        # AGL was removed from the macOS SDK in Xcode 15+.
+        # Qt 5.15's macx-clang mkspec still adds `-framework AGL`
+        # to the linker command line. Strip it before building.
+        run: |
+          sed -i '' 's/-framework AGL//g' src/ui/Makefile tests/Makefile
+
       - name: Build release
         run: make -j8
 
