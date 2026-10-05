@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      # Build every configuration. `mode` is exported as BUILD_MODE, which
+      # qmake uses to select the matching configure (debug or release).
+      matrix:
+        mode: [debug, release]
+
+    env:
+      BUILD_MODE: ${{ matrix.mode }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure ${{ matrix.mode }} with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build ${{ matrix.mode }}
+        run: make -j8
+
+      - name: Verify ${{ matrix.mode }} build artifacts
+        run: |
+          test -f src/ui/jumble
+          test -f tests/jumble_tests
+          echo "Built ($BUILD_MODE): src/ui/jumble and tests/jumble_tests"

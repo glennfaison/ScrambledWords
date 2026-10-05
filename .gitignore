@@ -1,15 +1,47 @@
-*.exe
-*.dat
-*.backup
+# --- Qt / qmake build artifacts ---
+# qmake-generated Makefiles (top level and per sub-project)
+Makefile
+Makefile.Debug
+Makefile.Release
+
+# Qt Creator project state
 *.pro.user
 *.pro.user.*
-Makefile
-Makefile.*
+
+# Generated from .ui files
 ui_*.h
+
+# Generated from headers with Q_OBJECT
 moc_*.h
 moc_*.cpp
+
+# Generated from .qrc resources
 qrc_*.cpp
+
+# Intermediate build output
 *.o
 *.a
 *.so
+
+# In-source build trees and debug/release artifact sub-dirs
+debug/
+release/
 build*/
+
+# qmake stash file
+.qmake.stash
+
+# --- Compiled executables ---
+# The built app and test binaries (qmake places them next to the source)
+jumble
+jumble_tests
+
+# Windows / macOS / Linux binaries
+*.exe
+*.app
+*.dylib
+
+# --- User data / local state ---
+# High-score and other local data files written by the running app
+*.dat
+*.backup
