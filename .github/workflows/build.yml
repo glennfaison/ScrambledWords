@@ -76,8 +76,9 @@ jobs:
       - name: Deploy Qt frameworks into bundle (macdeployqt)
         # macdeployqt copies Qt frameworks/plugins into the .app bundle so it
         # runs on machines without Qt installed. It also fixes rpaths.
+        # install-qt-action sets QT_ROOT_DIR, not QT_ROOT.
         run: |
-          "${{ env.QT_ROOT }}/bin/macdeployqt" src/ui/jumble.app -verbose=2
+          "${QT_ROOT_DIR}/bin/macdeployqt" src/ui/jumble.app -verbose=2
 
       - name: Copy dictionary into app bundle
         # The app looks for dictionary.txt next to the executable.
