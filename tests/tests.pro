@@ -29,3 +29,11 @@ HEADERS += \
     testplayer.h \
     testscorestore.h \
     testwordchecker.h
+
+# The AGL framework was removed from the macOS SDK in Xcode 15+.
+# Qt 5.15's macx-clang mkspec still adds `-framework AGL` to the
+# linker command line, which fails on modern SDKs. Strip the flag
+# from the generated Makefile after qmake runs.
+macx {
+    system("sed -i '' 's/-framework AGL//g' Makefile")
+}

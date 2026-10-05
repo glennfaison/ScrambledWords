@@ -39,3 +39,69 @@ jobs:
           test -f src/ui/jumble
           test -f tests/jumble_tests
           echo "Built ($BUILD_MODE): src/ui/jumble and tests/jumble_tests"
+
+  build-macos:
+    # Builds a macOS app bundle and publishes it as a downloadable artifact.
+    # After the run succeeds, open the run's "Artifacts" tab on Actions
+    # (or the PR's "Artifacts" section) and download
+    # jumble-macos-arm64-release.zip.
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Patch Makefiles (remove removed AGL framework)
+        # AGL was removed from the macOS SDK in Xcode 15+.
+        # Qt 5.15's macx-clang mkspec still adds `-framework AGL`
+        # to the linker command line. Strip it before building.
+        run: |
+          sed -i '' 's/-framework AGL//g' src/ui/Makefile tests/Makefile
+
+      - name: Build release
+        run: make -j8
+
+      - name: Deploy Qt frameworks into bundle (macdeployqt)
+        # macdeployqt copies Qt frameworks/plugins into the .app bundle so it
+        # runs on machines without Qt installed. It also fixes rpaths.
+        run: |
+          "${{ env.QT_ROOT }}/bin/macdeployqt" src/ui/jumble.app -verbose=2
+
+      - name: Copy dictionary into app bundle
+        # The app looks for dictionary.txt next to the executable.
+        run: cp dictionary.txt src/ui/jumble.app/Contents/MacOS/
+
+      - name: Verify app bundle
+        run: |
+          test -d src/ui/jumble.app
+          test -x src/ui/jumble.app/Contents/MacOS/jumble
+          echo "Built: src/ui/jumble.app"
+
+      - name: Package artifact
+        run: |
+          # The user needs the .app bundle and the dictionary. Zip them
+          # together into a single artifact. `ditto` preserves resource forks
+          # and permissions better than `zip` for macOS bundles.
+          ditto -c -k --sequesterRsrc \
+            src/ui/jumble.app \
+            jumble-macos-arm64-release.zip
+          zip -q jumble-macos-arm64-release.zip dictionary.txt
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jumble-macos-arm64-release
+          path: jumble-macos-arm64-release.zip
+          if-no-files-found: error
