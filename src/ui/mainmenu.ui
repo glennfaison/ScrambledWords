@@ -2,28 +2,22 @@
 <ui version="4.0">
  <class>MainMenu</class>
  <widget class="QMainWindow" name="MainMenu">
-  <property name="enabled">
-   <bool>true</bool>
-  </property>
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>557</width>
-    <height>650</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>Jumble - Game of Words!</string>
-  </property>
-  <property name="windowIcon">
-   <iconset>
-    <normaloff>://icons/default_profile_picture.png</normaloff>://icons/default_profile_picture.png</iconset>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">geometry: 380, 10;</string>
-  </property>
-  <widget class="QWidget" name="centralwidget">
+<property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>557</width>
+     <height>650</height>
+    </rect>
+   </property>
+   <property name="windowTitle">
+    <string>Jumble - Game of Words!</string>
+   </property>
+   <property name="windowIcon">
+    <iconset>
+     <normaloff>://icons/default_profile_picture.png</normaloff>://icons/default_profile_picture.png</iconset>
+   </property>
+   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="sessionLabel">
     <property name="geometry">
      <rect>
