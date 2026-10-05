@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+  <qresource prefix="/">
+    <file alias="icons/exit.ico">icons/exit.ico</file>
+    <file alias="icons/guest.ico">icons/guest.ico</file>
+    <file alias="icons/help.ico">icons/help.ico</file>
+    <file alias="icons/login.ico">icons/login.ico</file>
+    <file alias="icons/signup.ico">icons/signup.ico</file>
+    <file alias="icons/controls.ico">icons/controls.ico</file>
+    <file alias="icons/default_profile_picture.png">icons/default_profile_picture.png</file>
+  </qresource>
+</RCC>
