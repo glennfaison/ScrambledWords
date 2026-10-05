@@ -73,6 +73,16 @@ jobs:
       - name: Build release
         run: make -j8
 
+      - name: Deploy Qt frameworks into bundle (macdeployqt)
+        # macdeployqt copies Qt frameworks/plugins into the .app bundle so it
+        # runs on machines without Qt installed. It also fixes rpaths.
+        run: |
+          "${{ env.QT_ROOT }}/bin/macdeployqt" src/ui/jumble.app -verbose=2
+
+      - name: Copy dictionary into app bundle
+        # The app looks for dictionary.txt next to the executable.
+        run: cp dictionary.txt src/ui/jumble.app/Contents/MacOS/
+
       - name: Verify app bundle
         run: |
           test -d src/ui/jumble.app
