@@ -1,10 +1,8 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-#include <QLabel>
 #include <QList>
 #include <QMainWindow>
-#include <QPushButton>
 #include <QSet>
 
 #include "../core/letter.h"
@@ -61,8 +59,6 @@ private:
     Timer *m_timer;
 
     QList<WordChecker *> m_checkers;
-    QList<QPushButton *> m_letterButtons;
-    QList<QLabel *> m_letterScores;
     QList<QChar> m_currentLetters;
 
     unsigned m_sessionScore;

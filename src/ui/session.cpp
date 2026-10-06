@@ -30,7 +30,6 @@ Session::Session(const QString &user, QWidget *parent)
 
     ui->sessionLabel->setText(QStringLiteral("Jumble <br/><b style='color:blue;'>%1</b>")
                                    .arg(user));
-    ui->highScoreLabel->setText(highScoreHtml());
 }
 
 Session::~Session()
@@ -41,13 +40,10 @@ Session::~Session()
 
 void Session::setGameActive(bool active)
 {
-    for (QPushButton *button : m_letterButtons)
-        button->setEnabled(active);
     ui->submitButton->setEnabled(active);
     ui->clearAllButton->setEnabled(active);
     ui->clearOneButton->setEnabled(active);
     ui->lineEdit->setEnabled(active);
-    ui->treeWidget->setEnabled(active);
 }
 
 void Session::getNewLetterButtons()
@@ -57,28 +53,11 @@ void Session::getNewLetterButtons()
         seed = seed * 13 + 7;
         Letter letter(seed);
         m_currentLetters[i] = letter.character();
-        m_letterButtons[i]->setText(QString(letter.character()));
-        m_letterScores[i]->setText(QString::number(letter.value()));
     }
 }
 
 void Session::linkLetterButtonsAndValues()
 {
-    m_letterButtons = {
-        ui->letterButton_1,  ui->letterButton_2,  ui->letterButton_3,
-        ui->letterButton_4,  ui->letterButton_5,  ui->letterButton_6,
-        ui->letterButton_7,  ui->letterButton_8,  ui->letterButton_9,
-        ui->letterButton_10
-    };
-    m_letterScores = {
-        ui->letterScore_1,  ui->letterScore_2,  ui->letterScore_3,
-        ui->letterScore_4,  ui->letterScore_5,  ui->letterScore_6,
-        ui->letterScore_7,  ui->letterScore_8,  ui->letterScore_9,
-        ui->letterScore_10
-    };
-    for (int i = 0; i < kNumberOfButtons; ++i)
-        connect(m_letterButtons[i], &QPushButton::clicked,
-                this, [this, i]() { appendLetter(m_letterButtons[i]->text()); });
 }
 
 void Session::appendLetter(const QString &letter)
@@ -121,8 +100,6 @@ bool Session::wordIsValid(const QString &entry) const
 void Session::on_newGameButton_clicked()
 {
     setGameActive(true);
-    ui->treeWidget->clear();
-    ui->treeWidget->setHeaderLabels(QStringList() << tr("WORDS") << tr("POINTS"));
     ui->correctnessLabel->clear();
     ui->sessionScoreLabel->setText(QStringLiteral("0"));
 
@@ -164,13 +141,6 @@ void Session::onPointsReceived(const QString &word, unsigned points)
 
     ui->correctnessLabel->setText(QStringLiteral("<b style='color:green;'>%1</b>")
                                       .arg(word));
-
-    auto *item = new QTreeWidgetItem(ui->treeWidget);
-    item->setText(0, word);
-    item->setText(1, QString::number(points));
-    item->setTextAlignment(0, Qt::AlignRight);
-    item->setTextAlignment(1, Qt::AlignLeft);
-    ui->treeWidget->addTopLevelItem(item);
 
     m_sessionScore += points;
     ui->sessionScoreLabel->setText(QString::number(m_sessionScore));

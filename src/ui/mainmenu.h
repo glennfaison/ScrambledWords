@@ -2,8 +2,6 @@
 #define MAINMENU_H
 
 #include <QMainWindow>
-#include <QListWidget>
-#include <QTreeWidget>
 
 #include "../core/scorestore.h"
 #include "logindialog.h"
@@ -34,15 +32,12 @@ private slots:
     void on_actionPlay_as_Guest_triggered();
     void on_actionSign_Up_triggered();
     void on_actionLog_In_triggered();
-    void on_listWidget_itemDoubleClicked(QListWidgetItem *item);
     void on_actionExit_triggered();
     void on_actionRules_of_the_Game_triggered();
     void on_actionControls_triggered();
     void on_actionAuthor_triggered();
 
 private:
-    void setUpTabs();
-
     Ui::MainMenu *ui;
     ScoreStore m_store;
     Session *m_session = nullptr;
