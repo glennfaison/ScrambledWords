@@ -49,5 +49,7 @@ DISTFILES += \
     help.ico \
     exit.ico
 
+macx: QMAKE_LIBS_OPENGL = -framework OpenGL
+macx: QMAKE_LFLAGS_CONFIG -= -framework AGL
 macx: QMAKE_LFLAGS -= -framework AGL
 macx: LIBS -= -framework AGL

@@ -90,19 +90,25 @@ jobs:
         run: make -j8
       - name: Verify debug build artifacts
         run: |
-          test -f jumble
-          echo "Built (debug): jumble"
+          test -f jumble.app/Contents/MacOS/jumble
+          echo "Built (debug): jumble.app"
+      - name: Bundle Qt frameworks with macdeployqt
+        run: |
+          QT_BIN=/Users/runner/work/ScrambledWords/Qt/5.15.2/clang_64/bin
+          echo "Using macdeployqt: $QT_BIN/macdeployqt"
+          "$QT_BIN/macdeployqt" jumble.app -verbose=2
       - name: Prepare artifact directory
         run: |
           rm -rf jumble-macos-arm64-debug
           mkdir -p jumble-macos-arm64-debug
-          cp jumble jumble-macos-arm64-debug/
+          cp -r jumble.app jumble-macos-arm64-debug/
           cp dictionary.txt jumble-macos-arm64-debug/
+          ( cd jumble-macos-arm64-debug && zip -r ../jumble-macos-arm64-debug.zip jumble.app dictionary.txt )
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: jumble-macos-arm64-debug
-          path: jumble-macos-arm64-debug
+          path: jumble-macos-arm64-debug.zip
           if-no-files-found: error
 
   build-macos-release:
@@ -125,19 +131,29 @@ jobs:
         run: make -j8
       - name: Verify build artifact
         run: |
-          test -f jumble
-          echo "Built: jumble"
+          test -f jumble.app/Contents/MacOS/jumble
+          echo "Built: jumble.app"
+      - name: Bundle Qt frameworks with macdeployqt
+        run: |
+          QT_BIN=/Users/runner/work/ScrambledWords/Qt/5.15.2/clang_64/bin
+          echo "Using macdeployqt: $QT_BIN/macdeployqt"
+          "$QT_BIN/macdeployqt" jumble.app -verbose=2
+      - name: Verify bundled executable
+        run: |
+          test -f jumble.app/Contents/MacOS/jumble
+          otool -L jumble.app/Contents/MacOS/jumble | grep -v "/Users/runner" || true
       - name: Prepare artifact directory
         run: |
           rm -rf jumble-macos-arm64-release
           mkdir -p jumble-macos-arm64-release
-          cp jumble jumble-macos-arm64-release/
+          cp -r jumble.app jumble-macos-arm64-release/
           cp dictionary.txt jumble-macos-arm64-release/
+          ( cd jumble-macos-arm64-release && zip -r ../jumble-macos-arm64-release.zip jumble.app dictionary.txt )
       - name: Upload macOS artifact
         uses: actions/upload-artifact@v4
         with:
           name: jumble-macos-arm64-release
-          path: jumble-macos-arm64-release
+          path: jumble-macos-arm64-release.zip
           if-no-files-found: error
 
   # ── Windows ─────────────────────────────────────────────
