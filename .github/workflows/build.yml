@@ -92,6 +92,11 @@ jobs:
         run: |
           test -f jumble.app/Contents/MacOS/jumble
           echo "Built (debug): jumble.app"
+      - name: Bundle Qt frameworks with macdeployqt
+        run: |
+          QT_BIN=/Users/runner/work/ScrambledWords/Qt/5.15.2/clang_64/bin
+          echo "Using macdeployqt: $QT_BIN/macdeployqt"
+          "$QT_BIN/macdeployqt" jumble.app -verbose=2
       - name: Prepare artifact directory
         run: |
           rm -rf jumble-macos-arm64-debug
@@ -128,6 +133,15 @@ jobs:
         run: |
           test -f jumble.app/Contents/MacOS/jumble
           echo "Built: jumble.app"
+      - name: Bundle Qt frameworks with macdeployqt
+        run: |
+          QT_BIN=/Users/runner/work/ScrambledWords/Qt/5.15.2/clang_64/bin
+          echo "Using macdeployqt: $QT_BIN/macdeployqt"
+          "$QT_BIN/macdeployqt" jumble.app -verbose=2
+      - name: Verify bundled executable
+        run: |
+          test -f jumble.app/Contents/MacOS/jumble
+          otool -L jumble.app/Contents/MacOS/jumble | grep -v "/Users/runner" || true
       - name: Prepare artifact directory
         run: |
           rm -rf jumble-macos-arm64-release
