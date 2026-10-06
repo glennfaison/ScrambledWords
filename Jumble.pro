@@ -48,3 +48,6 @@ DISTFILES += \
     guest.ico \
     help.ico \
     exit.ico
+
+macx: QMAKE_LFLAGS -= -framework AGL
+macx: LIBS -= -framework AGL
