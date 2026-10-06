@@ -366,7 +366,7 @@ void Session::on_actionBack_triggered()// EXIT PROBLEM LIES HERE
     {
         on_backLink_clicked();
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         on_backLink_clicked();

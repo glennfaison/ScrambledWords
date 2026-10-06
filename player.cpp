@@ -1,4 +1,5 @@
 #include "player.h"
+#include <cstring>
 
 Player::Player(QString name)
 {
@@ -26,7 +27,7 @@ void Player::loadHiScores(QString name)
     {
         file.open(QFile::ReadWrite);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         restoreSaveFile();
@@ -74,7 +75,7 @@ void Player::saveToFile()
     {
         file.open(QFile::ReadWrite);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         restoreSaveFile();
@@ -120,7 +121,7 @@ void Player::saveToFile()
     {
         file.open(QFile::ReadWrite|QFile::Append);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         restoreSaveFile();
@@ -142,7 +143,7 @@ bool Player::exists(QString entry)
     {
         file.open(QFile::ReadWrite);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         restoreSaveFile();
@@ -187,7 +188,7 @@ void Player::backUpSaveFile()
         QFile::remove("highScores.backup");
         std::cout << "removing old backup..." << std::endl;
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         return backUpSaveFile();
@@ -199,7 +200,7 @@ void Player::backUpSaveFile()
         QFile::copy("highScores.dat", "highScores.backup");
         std::cout << "backing up save file..." << std::endl;
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         return backUpSaveFile();
@@ -214,7 +215,7 @@ void Player::restoreSaveFile()
         QFile::remove("highScores.dat");
         std::cout << "removing old save file..." << std::endl;
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         return restoreSaveFile();
@@ -226,7 +227,7 @@ void Player::restoreSaveFile()
         QFile::copy("highScores.backup", "highScores.dat");
         std::cout << "restoring save file..." << std::endl;
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cout << e.what() << std::endl;
         return restoreSaveFile();
@@ -240,7 +241,7 @@ QStringList Player::loadAllPlayerNames()
     {
         file.open(QFile::ReadWrite);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cerr << e.what() << std::endl;
         restoreSaveFile();
@@ -266,7 +267,7 @@ QList<Player::HiScoreEntry> Player::loadGeneralHiScores()
     {
         file.open(QFile::ReadWrite);
     }
-    catch(QException e)
+    catch(const QException &e)
     {
         std::cerr << e.what() << std::endl;
         return loadGeneralHiScores();
@@ -276,16 +277,16 @@ QList<Player::HiScoreEntry> Player::loadGeneralHiScores()
     hs.first = "GUEST";
     hs.second = 0;
     // add empty HiScoreEntrys
-    for(int i = 0; i < highScoreLength; i++) ret.push_back(hs);
+    for(unsigned i = 0; i < highScoreLength; i++) ret.push_back(hs);
     Record record;
     while(file.read((char*)&record, sizeof(record)))
     {
         // add each high score in a sorted manner to the list
-        for(int i = 0; i < highScoreLength; i++)
+        for(unsigned i = 0; i < highScoreLength; i++)
         {
             hs.first = record.userName;
             hs.second = record.high_score[i];
-            for(int j = 0; j < highScoreLength; j++)
+            for(unsigned j = 0; j < highScoreLength; j++)
             {
                 if(hs.second > ret.at(j).second)
                 {
@@ -354,7 +355,7 @@ void Player::swap(unsigned *A, unsigned left, unsigned right)
 void Player::copyToRecord(Record &record)
 {
     // write relevant info to the record
-    strcpy_s(record.userName, userName.toStdString().c_str());
+    std::strcpy(record.userName, userName.toStdString().c_str());
     for(unsigned i = 0; i <= highScoreLength; i++)
     {
         record.high_score[i] = high_score[i];
