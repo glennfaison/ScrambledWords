@@ -1,3 +1,29 @@
+# Compiled object files, executables, and build artifacts
+*.o
+*.obj
 *.exe
+*.app
+*.dylib
+*.dll
+
+# Qt generated files
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# Build directories and generated Makefiles
+Makefile
+Makefile.Debug
+Makefile.Release
+release/
+debug/
+build/
+
+# Qt Creator project user files
+*.pro.user
+*.pro.user.*
+
+# Application data files
 *.dat
 *.backup
+highScores.*

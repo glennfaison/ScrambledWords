@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: macos-latest
     outputs:
-      artifact-path: src/ui/jumble.app
+      artifact-path: jumble-macos-arm64-release
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -28,31 +28,19 @@ jobs:
       - name: Configure release build with qmake
         run: qmake -r Jumble.pro
 
-      - name: Patch Makefiles (remove removed AGL framework)
-        run: |
-          sed -i '' 's/-framework AGL//g' src/ui/Makefile tests/Makefile
-
       - name: Build release
         run: make -j8
 
-      - name: Deploy Qt frameworks into bundle (macdeployqt)
+      - name: Verify build artifact
         run: |
-          "${QT_ROOT_DIR}/bin/macdeployqt" src/ui/jumble.app -verbose=2
-
-      - name: Copy dictionary into app bundle
-        run: cp dictionary.txt src/ui/jumble.app/Contents/MacOS/
-
-      - name: Verify app bundle
-        run: |
-          test -d src/ui/jumble.app
-          test -x src/ui/jumble.app/Contents/MacOS/jumble
-          echo "Built: src/ui/jumble.app"
+          test -f jumble
+          echo "Built: jumble"
 
       - name: Prepare artifact directory
         run: |
           rm -rf jumble-macos-arm64-release
           mkdir -p jumble-macos-arm64-release
-          ditto src/ui/jumble.app jumble-macos-arm64-release/Jumble.app
+          cp jumble jumble-macos-arm64-release/
           cp dictionary.txt jumble-macos-arm64-release/
 
       - name: Upload macOS artifact

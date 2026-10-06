@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      artifact-path: src/ui/jumble
+      artifact-path: jumble
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -32,6 +32,5 @@ jobs:
 
       - name: Verify release build artifacts
         run: |
-          test -f src/ui/jumble
-          test -f tests/jumble_tests
-          echo "Built (release): src/ui/jumble and tests/jumble_tests"
+          test -f jumble
+          echo "Built (release): jumble"

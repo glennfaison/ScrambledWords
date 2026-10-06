@@ -39,11 +39,9 @@ FORMS    += session.ui \
     signupdialog.ui
 
 OTHER_FILES += \
-    dictionary.txt \
-    ../../../../Software/Matlab/visual basis/VFP98/gallery/graphics/help.ico
+    dictionary.txt
 
 DISTFILES += \
-    OOFL.ICO \
     controls.ico \
     signup.ico \
     login.ico \

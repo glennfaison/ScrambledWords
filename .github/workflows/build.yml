@@ -2,7 +2,8 @@ name: Build
 
 on:
   push:
+    branches: [master]
 
 jobs:
-  build-ubuntu-debug:
-    uses: ./.github/workflows/build-ubuntu-debug.yml
+  build-macos:
+    uses: ./.github/workflows/build-macos.yml
