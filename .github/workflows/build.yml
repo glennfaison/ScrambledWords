@@ -26,6 +26,6 @@ on:
 jobs:
   build:
     name: Build (${{ github.event.inputs.os || 'macos' }}-${{ github.event.inputs.build_type || 'release' }})
-    uses: ./.github/workflows/build/build-${{ github.event.inputs.os || 'macos' }}.yml
+    uses: ./.github/workflows/build-workflows/build-${{ github.event.inputs.os || 'macos' }}.yml
     with:
       build_type: ${{ github.event.inputs.build_type || 'release' }}
