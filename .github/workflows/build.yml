@@ -13,7 +13,7 @@ on:
           - ubuntu
           - macos
           - windows
-        default: macos
+        default: ubuntu
       build_type:
         description: "Build type"
         required: true
@@ -21,11 +21,11 @@ on:
         options:
           - debug
           - release
-        default: release
+        default: debug
 
 jobs:
   build:
-    name: Build (${{ github.event.inputs.os || 'macos' }}-${{ github.event.inputs.build_type || 'release' }})
-    uses: ./.github/workflows/build-workflows/build-${{ github.event.inputs.os || 'macos' }}.yml
+    name: Build (${{ github.event.inputs.os || 'ubuntu' }}-${{ github.event.inputs.build_type || 'debug' }})
+    uses: ./.github/workflows/build-workflows/build-${{ github.event.inputs.os || 'ubuntu' }}.yml
     with:
-      build_type: ${{ github.event.inputs.build_type || 'release' }}
+      build_type: ${{ github.event.inputs.build_type || 'debug' }}
