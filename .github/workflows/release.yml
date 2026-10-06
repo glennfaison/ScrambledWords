@@ -1,8 +1,0 @@
-name: Release Builds
-
-on:
-  workflow_dispatch:
-
-jobs:
-  build-macos:
-    uses: ./.github/workflows/build-macos.yml

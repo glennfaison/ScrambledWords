@@ -1,0 +1,97 @@
+name: Ubuntu Build
+
+on:
+  workflow_call:
+    inputs:
+      build_type:
+        description: "Build type (debug or release)"
+        required: true
+        type: string
+    outputs:
+      artifact-path:
+        description: "Path to the built executable"
+        value: ${{ jobs.build.outputs.artifact-path }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-path: jumble
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure ${{ inputs.build_type }} build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build ${{ inputs.build_type }}
+        run: make -j8
+
+      - name: Verify build artifacts
+        run: |
+          test -f jumble
+          echo "Built (${{ inputs.build_type }}): jumble"
+
+  debug:
+    needs: []
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-path: jumble
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build debug
+        run: make -j8
+
+      - name: Verify debug build artifacts
+        run: |
+          test -f jumble
+          echo "Built (debug): jumble"
+
+  release:
+    needs: []
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-path: jumble
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build release
+        run: make -j8
+
+      - name: Verify release build artifacts
+        run: |
+          test -f jumble
+          echo "Built (release): jumble"

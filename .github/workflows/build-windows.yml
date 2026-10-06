@@ -1,0 +1,100 @@
+name: Windows Build
+
+on:
+  workflow_call:
+    inputs:
+      build_type:
+        description: "Build type (debug or release)"
+        required: true
+        type: string
+    outputs:
+      artifact-path:
+        description: "Path to the built executable"
+        value: ${{ jobs.build.outputs.artifact-path }}
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      artifact-path: jumble.exe
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure ${{ inputs.build_type }} build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build ${{ inputs.build_type }}
+        run: make -j8
+
+      - name: Verify build artifacts
+        run: |
+          if (-Not (Test-Path jumble.exe)) { exit 1 }
+          echo "Built (${{ inputs.build_type }}): jumble.exe"
+
+  debug:
+    needs: []
+    runs-on: windows-latest
+    outputs:
+      artifact-path: jumble.exe
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build debug
+        run: make -j8
+
+      - name: Verify debug build artifacts
+        run: |
+          if (-Not (Test-Path jumble.exe)) { exit 1 }
+          echo "Built (debug): jumble.exe"
+
+  release:
+    needs: []
+    runs-on: windows-latest
+    outputs:
+      artifact-path: jumble.exe
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build release
+        run: make -j8
+
+      - name: Verify release build artifacts
+        run: |
+          if (-Not (Test-Path jumble.exe)) { exit 1 }
+          echo "Built (release): jumble.exe"

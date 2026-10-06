@@ -3,7 +3,29 @@ name: Build
 on:
   push:
     branches: [master]
+  workflow_dispatch:
+    inputs:
+      os:
+        description: "Operating system"
+        required: true
+        type: choice
+        options:
+          - ubuntu
+          - macos
+          - windows
+        default: macos
+      build_type:
+        description: "Build type"
+        required: true
+        type: choice
+        options:
+          - debug
+          - release
+        default: release
 
 jobs:
-  build-macos:
-    uses: ./.github/workflows/build-macos.yml
+  build:
+    name: Build (${{ inputs.os || 'macos' }}-${{ inputs.build_type || 'release' }})
+    uses: ./.github/workflows/build-${{ inputs.os || 'macos' }}.yml
+    with:
+      build_type: ${{ inputs.build_type || 'release' }}
