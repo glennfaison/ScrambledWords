@@ -1,0 +1,38 @@
+name: Windows Release Build
+
+on:
+  workflow_call:
+    outputs:
+      artifact-path:
+        description: "Path to the built release executable"
+        value: ${{ jobs.build.outputs.artifact-path }}
+
+jobs:
+  build:
+    runs-on: windows-latest
+    outputs:
+      artifact-path: src/ui/jumble.exe
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build release
+        run: make -j8
+
+      - name: Verify release build artifacts
+        run: |
+          if (-Not (Test-Path src/ui/jumble.exe)) { exit 1 }
+          if (-Not (Test-Path tests/jumble_tests.exe)) { exit 1 }
+          echo "Built (release): src/ui/jumble.exe and tests/jumble_tests.exe"
