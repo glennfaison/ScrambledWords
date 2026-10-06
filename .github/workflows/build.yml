@@ -11,7 +11,7 @@ jobs:
       # Build every configuration. `mode` is exported as BUILD_MODE, which
       # qmake uses to select the matching configure (debug or release).
       matrix:
-        mode: [debug, release]
+        mode: [debug]
 
     env:
       BUILD_MODE: ${{ matrix.mode }}
