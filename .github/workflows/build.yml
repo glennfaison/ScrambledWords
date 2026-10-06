@@ -24,8 +24,23 @@ on:
         default: debug
 
 jobs:
-  build:
-    name: Build (${{ github.event.inputs.os || 'ubuntu' }}-${{ github.event.inputs.build_type || 'debug' }})
-    uses: ./.github/workflows/build-workflows/build-${{ github.event.inputs.os || 'ubuntu' }}.yml
+  build-ubuntu:
+    name: Build (ubuntu-${{ github.event.inputs.build_type || 'debug' }})
+    if: github.event_name == 'push' || github.event.inputs.os == 'ubuntu'
+    uses: ./.github/workflows/build-workflows/build-ubuntu.yml
+    with:
+      build_type: ${{ github.event.inputs.build_type || 'debug' }}
+
+  build-macos:
+    name: Build (macos-${{ github.event.inputs.build_type || 'debug' }})
+    if: github.event_name != 'push' && github.event.inputs.os == 'macos'
+    uses: ./.github/workflows/build-workflows/build-macos.yml
+    with:
+      build_type: ${{ github.event.inputs.build_type || 'debug' }}
+
+  build-windows:
+    name: Build (windows-${{ github.event.inputs.build_type || 'debug' }})
+    if: github.event_name != 'push' && github.event.inputs.os == 'windows'
+    uses: ./.github/workflows/build-workflows/build-windows.yml
     with:
       build_type: ${{ github.event.inputs.build_type || 'debug' }}
