@@ -8,7 +8,6 @@ MainMenu::MainMenu(QWidget *parent)
     , ui(new Ui::MainMenu)
 {
     ui->setupUi(this);
-    setUpTabs();
 }
 
 MainMenu::~MainMenu()
@@ -28,7 +27,7 @@ void MainMenu::on_signUpButton_clicked()
 {
     auto *dialog = new SignUpDialog(this);
     connect(dialog, &SignUpDialog::successfulSignUp,
-            this, [this]() { setUpTabs(); });
+            this, [this]() { });
     dialog->show();
 }
 
@@ -40,7 +39,6 @@ void MainMenu::on_guestButton_clicked()
 void MainMenu::onSessionClosed(const Player &player)
 {
     player.save(&m_store);
-    setUpTabs();
 }
 
 void MainMenu::onUserLoggedIn(const QString &name)
@@ -58,31 +56,6 @@ void MainMenu::logInWithName(const QString &name)
     setVisible(false);
 }
 
-void MainMenu::setUpTabs()
-{
-    ui->tabWidget->clear();
-
-    ui->listWidget->clear();
-    ui->listWidget->setSortingEnabled(true);
-    const QStringList names = m_store.playerNames();
-    for (const QString &name : names)
-        ui->listWidget->addItem(new QListWidgetItem(name));
-    ui->tabWidget->addTab(ui->listWidget, tr("Current Accounts"));
-
-    auto *treeWidget = new QTreeWidget;
-    const QMap<QString, QList<int>> byName = m_store.byName();
-    treeWidget->setHeaderLabels(QStringList() << tr("NAME") << tr("HI-SCORE"));
-    for (auto it = byName.constBegin(); it != byName.constEnd(); ++it) {
-        if (it.key() == QStringLiteral("GUEST"))
-            continue;
-        for (int score : it.value())
-            treeWidget->addTopLevelItem(
-                new QTreeWidgetItem(QStringList() << it.key() << QString::number(score)));
-    }
-    treeWidget->sortItems(1, Qt::DescendingOrder);
-    ui->tabWidget->addTab(treeWidget, tr("High Scores"));
-}
-
 void MainMenu::on_actionPlay_as_Guest_triggered()
 {
     on_guestButton_clicked();
@@ -96,11 +69,6 @@ void MainMenu::on_actionSign_Up_triggered()
 void MainMenu::on_actionLog_In_triggered()
 {
     on_logInButton_clicked();
-}
-
-void MainMenu::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
-{
-    logInWithName(item->text());
 }
 
 void MainMenu::on_actionExit_triggered()

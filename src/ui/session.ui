@@ -16,10 +16,7 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>://icons/default_profile_picture.png</normaloff>://icons/default_profile_picture.png</iconset>
-  </property>
-  <property name="locale">
-   <locale language="English" country="Cameroon"/>
-  </property>
+   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QPushButton" name="newGameButton">
     <property name="geometry">
@@ -36,8 +33,8 @@
     <property name="icon">
      <iconset>
       <normaloff>://icons/guest.ico</normaloff>://icons/guest.ico</iconset>
-    </property>
-   </widget>
+     </property>
+    </widget>
    <widget class="QLabel" name="sessionScoreLabel">
     <property name="geometry">
      <rect>
@@ -85,27 +82,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="letterButton_3">
-    <property name="geometry">
-     <rect>
-      <x>122</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>G</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="submitButton">
     <property name="geometry">
      <rect>
@@ -115,281 +91,10 @@
       <height>31</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Submit</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>://icons/login.ico</normaloff>://icons/login.ico</iconset>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_6">
-    <property name="geometry">
-     <rect>
-      <x>275</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>E</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_8">
-    <property name="geometry">
-     <rect>
-      <x>392</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>10</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_8</cstring>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_9">
-    <property name="geometry">
-     <rect>
-      <x>444</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_9</cstring>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_7">
-    <property name="geometry">
-     <rect>
-      <x>341</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_7</cstring>
-    </property>
-   </widget>
-   <widget class="QTreeWidget" name="treeWidget">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>287</x>
-      <y>380</y>
-      <width>256</width>
-      <height>220</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="lineWidth">
-     <number>5</number>
-    </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-    <property name="columnCount">
-     <number>2</number>
-    </property>
-    <attribute name="headerCascadingSectionResizes">
-     <bool>true</bool>
-    </attribute>
-    <attribute name="headerDefaultSectionSize">
-     <number>185</number>
-    </attribute>
-    <attribute name="headerMinimumSectionSize">
-     <number>10</number>
-    </attribute>
-    <column>
-     <property name="text">
-      <string>WORDS</string>
+<property name="text">
+      <string>Submit</string>
      </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-    </column>
-    <column>
-     <property name="text">
-      <string>POINTS</string>
-     </property>
-    </column>
-    <item>
-     <property name="text">
-      <string>BEAST</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-     <property name="text">
-      <string>6</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignLeft|AlignVCenter</set>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>EXACT</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-     <property name="text">
-      <string>16</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>STAB</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignRight|AlignVCenter</set>
-     </property>
-     <property name="text">
-      <string>5</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QPushButton" name="letterButton_10">
-    <property name="geometry">
-     <rect>
-      <x>482</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>C</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_7">
-    <property name="geometry">
-     <rect>
-      <x>326</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>S</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>240</y>
-      <width>540</width>
-      <height>3</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_10">
-    <property name="geometry">
-     <rect>
-      <x>496</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>3</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_10</cstring>
-    </property>
-   </widget>
+    </widget>
    <widget class="QLabel" name="sessionLabel">
     <property name="geometry">
      <rect>
@@ -408,7 +113,7 @@
      </font>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Jumble &lt;br/&gt; &lt;span style=&quot; color:#0000ff;&quot;&gt;GUEST&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>Jumble</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -438,19 +143,6 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="Line" name="line_4">
-    <property name="geometry">
-     <rect>
-      <x>547</x>
-      <y>180</y>
-      <width>3</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
    <widget class="QLabel" name="timeLabel">
     <property name="geometry">
      <rect>
@@ -477,224 +169,30 @@ background-color: rgb(255, 255, 255);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="letterScore_5">
+   <widget class="QPushButton" name="clearAllButton">
     <property name="geometry">
      <rect>
-      <x>238</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_5</cstring>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_8">
-    <property name="geometry">
-     <rect>
-      <x>377</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>X</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_9">
-    <property name="geometry">
-     <rect>
-      <x>429</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>T</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_1">
-    <property name="geometry">
-     <rect>
-      <x>33</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_1</cstring>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_2">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>E</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>-3</x>
-      <y>250</y>
-      <width>551</width>
+      <x>97</x>
+      <y>530</y>
+      <width>75</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>How many words can you form with the following letters?</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_4">
+<property name="text">
+      <string>Clear All</string>
+     </property>
+    </widget>
+   <widget class="QPushButton" name="clearOneButton">
     <property name="geometry">
      <rect>
-      <x>173</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
+      <x>17</x>
+      <y>530</y>
+      <width>75</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
     <property name="text">
-     <string>B</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_5">
-    <property name="geometry">
-     <rect>
-      <x>224</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>A</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="letterButton_1">
-    <property name="geometry">
-     <rect>
-      <x>18</x>
-      <y>280</y>
-      <width>50</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Consolas</family>
-      <pointsize>20</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>W</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_2">
-    <property name="geometry">
-     <rect>
-      <x>85</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_2</cstring>
+     <string>Clear One</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
@@ -716,156 +214,7 @@ background-color: rgb(255, 255, 255);</string>
      <set>Qt::ImhUppercaseOnly</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="clearAllButton">
-    <property name="geometry">
-     <rect>
-      <x>97</x>
-      <y>530</y>
-      <width>75</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Clear All</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>://icons/exit.ico</normaloff>://icons/exit.ico</iconset>
-    </property>
-   </widget>
-   <widget class="Line" name="line_3">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>180</y>
-      <width>3</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_4">
-    <property name="geometry">
-     <rect>
-      <x>187</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_4</cstring>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="clearOneButton">
-    <property name="geometry">
-     <rect>
-      <x>17</x>
-      <y>530</y>
-      <width>75</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Clear One</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>7</x>
-      <y>170</y>
-      <width>540</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_3">
-    <property name="geometry">
-     <rect>
-      <x>136</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_3</cstring>
-    </property>
-   </widget>
-   <widget class="QLabel" name="letterScore_6">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>330</y>
-      <width>20</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>1</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="buddy">
-     <cstring>letterButton_6</cstring>
-    </property>
-   </widget>
-   <widget class="QLabel" name="highScoreLabel">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>140</y>
-      <width>261</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>15</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QCommandLinkButton" name="backLink">
+   <widget class="QPushButton" name="backLink">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -874,37 +223,34 @@ background-color: rgb(255, 255, 255);</string>
       <height>30</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Back</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>://icons/exit.ico</normaloff>://icons/exit.ico</iconset>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="graphicsView">
+<property name="text">
+      <string>Back</string>
+     </property>
+    </widget>
+   <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>10</y>
-      <width>170</width>
-      <height>160</height>
+      <x>-3</x>
+      <y>250</y>
+      <width>551</width>
+      <height>31</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">background-image:url(&quot;://icons/default_profile_picture.png&quot;);
-
-</string>
+    <property name="font">
+     <font>
+      <family>Consolas</family>
+      <pointsize>12</pointsize>
+     </font>
     </property>
-    <property name="horizontalScrollBarPolicy">
-     <enum>Qt::ScrollBarAlwaysOff</enum>
+    <property name="text">
+     <string>How many words can you form with the following letters?</string>
     </property>
-    <property name="sizeAdjustPolicy">
-     <enum>QAbstractScrollArea::AdjustToContents</enum>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
+</widget>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
+   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
