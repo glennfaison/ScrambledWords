@@ -27,20 +27,20 @@ jobs:
   build-ubuntu:
     name: Build (ubuntu-${{ github.event.inputs.build_type || 'debug' }})
     if: github.event_name == 'push' || github.event.inputs.os == 'ubuntu'
-    uses: ./.github/workflows/build-workflows/build-ubuntu.yml
+    uses: ./.github/workflows/build-ubuntu.yml
     with:
       build_type: ${{ github.event.inputs.build_type || 'debug' }}
 
   build-macos:
     name: Build (macos-${{ github.event.inputs.build_type || 'debug' }})
     if: github.event_name != 'push' && github.event.inputs.os == 'macos'
-    uses: ./.github/workflows/build-workflows/build-macos.yml
+    uses: ./.github/workflows/build-macos.yml
     with:
       build_type: ${{ github.event.inputs.build_type || 'debug' }}
 
   build-windows:
     name: Build (windows-${{ github.event.inputs.build_type || 'debug' }})
     if: github.event_name != 'push' && github.event.inputs.os == 'windows'
-    uses: ./.github/workflows/build-workflows/build-windows.yml
+    uses: ./.github/workflows/build-windows.yml
     with:
       build_type: ${{ github.event.inputs.build_type || 'debug' }}
