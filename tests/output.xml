@@ -1,0 +1,19 @@
+********* Start testing of tst_scrambledwords *********
+Config: Using QtTest library 5.15.3, Qt 5.15.3 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 11.3.0), ubuntu 22.04
+PASS   : tst_scrambledwords::initTestCase()
+PASS   : tst_scrambledwords::findWordInDictionary_presentWord()
+PASS   : tst_scrambledwords::findWordInDictionary_absentWord()
+PASS   : tst_scrambledwords::findWordInDictionary_firstRecord()
+PASS   : tst_scrambledwords::findWordInDictionary_lastRecord()
+PASS   : tst_scrambledwords::findWordInDictionary_emptyFile()
+PASS   : tst_scrambledwords::sendPoints_validWord()
+PASS   : tst_scrambledwords::sendPoints_invalidWord()
+PASS   : tst_scrambledwords::sendPoints_singleLetter()
+PASS   : tst_scrambledwords::sendPoints_pointsMatchValuesTable()
+FAIL!  : tst_scrambledwords::letterCharacterAndValueFromSeed() Compared values are not the same
+   Actual   (letter.character()): 'F'
+   Expected (td.expectedChar)   : QChar: 'A' (0x41)
+   Loc: [tst_scrambledwords.cpp(181)]
+PASS   : tst_scrambledwords::cleanupTestCase()
+Totals: 11 passed, 1 failed, 0 skipped, 0 blacklisted, 2ms
+********* Finished testing of tst_scrambledwords *********

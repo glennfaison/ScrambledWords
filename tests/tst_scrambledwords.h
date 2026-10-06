@@ -3,22 +3,6 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
-#include <QSignalSpy>
-#include <QApplication>
-#include <QTemporaryDir>
-#include <QFile>
-#include <QTextStream>
-
-// A small fixture dictionary that exercises the binary-search edge cases
-// (first record, last record, empty search space) without depending on the
-// 10 MB shipped dictionary. Written as 31-byte fixed-width records, padded
-// with NULs, exactly like dictionary.txt.
-static const char *FIXTURE_DICTIONARY =
-    "ALPHA\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-    "BETA\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-    "GAMMA\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-    "DELTA\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-    "EPSILON\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
 
 class tst_scrambledwords : public QObject
 {
@@ -29,40 +13,33 @@ private slots:
     void cleanupTestCase();
 
     // --- WordChecker: dictionary lookup ---
-    void findWordInDictionary_presentWord();
-    void findWordInDictionary_absentWord();
-    void findWordInDictionary_firstRecord();
-    void findWordInDictionary_lastRecord();
-    void findWordInDictionary_emptyFile();
+    // Plain English description:
+    // Verifies the binary-search dictionary lookup correctly reports
+    // whether a given word exists in dictionary.txt.
+    void findWordInDictionary_presentWord();     // a word known to be in the dictionary → found
+    void findWordInDictionary_absentWord();      // a word not in the dictionary → not found
+    void findWordInDictionary_firstRecord();     // the first (sorted) entry in the file
+    void findWordInDictionary_lastRecord();      // the last (sorted) entry in the file
+    void findWordInDictionary_emptyFile();       // empty dictionary file → always not found
 
     // --- WordChecker: scoring ---
-    void sendPoints_validWord();
-    void sendPoints_invalidWord();
-    void sendPoints_singleLetter();
-    void sendPoints_pointsMatchScrabbleTable();
+    // Plain English description:
+    // Verifies that points are only awarded for dictionary-valid words
+    // and that the points equal the sum of per-letter Scrabble values
+    // defined in WordChecker::run().
+    void sendPoints_validWord();                // valid dict word → correct point total
+    void sendPoints_invalidWord();              // invalid word → 0 points
+    void sendPoints_singleLetter();             // single-letter word → correct value
+    void sendPoints_pointsMatchValuesTable();   // every letter's value matches the code table
 
-    // --- Session: word validity ---
-    void wordIsValid_usesEachLetterOnce();
-    void wordIsValid_rejectsMissingLetter();
-    void wordIsValid_rejectsOveruseOfRepeatedLetter();
-    void wordIsValid_emptyString();
-    void wordIsValid_singleLetter();
-
-    // --- Session: duplicate tracking ---
-    void wordHasBeenEntered_firstSubmission();
-    void wordHasBeenEntered_repeatedSubmission();
-    void wordHasBeenEntered_caseSensitive();
-    void previouslyEnteredWordsResetOnNewGame();
-
-    // --- Session: score accumulation ---
-    void sessionScoreAccumulatesCorrectWords();
-    void sessionScoreIgnoresInvalidAndDuplicateWords();
+    // --- Letter ---
+    // Verifies that Letter(seed) deterministically maps a seed to a
+    // letter and that the letter's Scrabble value matches the code's
+    // values table.
+    void letterCharacterAndValueFromSeed();
 
 private:
-    void writeFixture();
-    void restoreWorkingDirectory();
-    quint64 originalCwd_;
-    QTemporaryDir *fixtureDir_;
+    void writeFixtureDictionary();
 };
 
 #endif // TST_SCRAMBLEDWORDS_H

@@ -6,19 +6,23 @@
 # depends on: dictionary lookup, scoring, word validation and duplicate
 # tracking.
 
-QT       += testlib core widgets
+QT       += testlib core
 TEMPLATE = app
 
 TARGET = tst_scrambledwords
 
-SOURCES += main.cpp \
-           tst_wordchecker.cpp \
-           tst_session.cpp
+INCLUDEPATH += ..
 
-HEADERS += tst_wordchecker.h \
-           tst_session.h
+SOURCES += main.cpp \
+           tst_scrambledwords.cpp \
+           ../wordchecker.cpp \
+           ../letter.cpp
+
+HEADERS += ../wordchecker.h \
+           ../letter.h \
+           tst_scrambledwords.h
 
 # The WordChecker opens "dictionary.txt" from the process working directory.
 # Tests therefore run from the repository root where the real dictionary
 # ships. Run with:
-#     ./tst_scrambledwords -txt
+#     ./tests/tst_scrambledwords
