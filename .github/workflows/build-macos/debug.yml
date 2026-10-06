@@ -1,0 +1,51 @@
+name: macOS Debug Build
+
+on:
+  workflow_call:
+    outputs:
+      artifact-path:
+        description: "Path to the built debug executable"
+        value: ${{ jobs.build.outputs.artifact-path }}
+
+jobs:
+  build:
+    runs-on: macos-latest
+    outputs:
+      artifact-path: jumble-macos-arm64-debug
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+
+      - name: Verify qmake is available
+        run: qmake --version
+
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+
+      - name: Build debug
+        run: make -j8
+
+      - name: Verify debug build artifacts
+        run: |
+          test -f jumble
+          echo "Built (debug): jumble"
+
+      - name: Prepare artifact directory
+        run: |
+          rm -rf jumble-macos-arm64-debug
+          mkdir -p jumble-macos-arm64-debug
+          cp jumble jumble-macos-arm64-debug/
+          cp dictionary.txt jumble-macos-arm64-debug/
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jumble-macos-arm64-debug
+          path: jumble-macos-arm64-debug
+          if-no-files-found: error

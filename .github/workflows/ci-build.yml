@@ -1,0 +1,11 @@
+name: CI Build
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-ubuntu-debug:
+    uses: ./.github/workflows/build-ubuntu/debug.yml
+    with:
+      build_type: debug
