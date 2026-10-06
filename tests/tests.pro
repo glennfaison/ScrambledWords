@@ -1,4 +1,4 @@
-QT      += core testlib
+QT      += core testlib widgets
 
 TARGET   = jumble_tests
 TEMPLATE = app
@@ -17,7 +17,9 @@ SOURCES += \
     testletter.cpp \
     testplayer.cpp \
     testscorestore.cpp \
-    testwordchecker.cpp
+    testwordchecker.cpp \
+    testmainmenu.cpp \
+    testsession.cpp
 
 HEADERS += \
     ../src/core/letter.h \
@@ -28,7 +30,9 @@ HEADERS += \
     testletter.h \
     testplayer.h \
     testscorestore.h \
-    testwordchecker.h
+    testwordchecker.h \
+    testmainmenu.h \
+    testsession.h
 
 # The AGL framework was removed from the macOS SDK in Xcode 15+.
 # Qt 5.15's macx-clang mkspec still adds `-framework AGL` to the

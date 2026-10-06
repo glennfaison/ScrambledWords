@@ -2,13 +2,15 @@
 #include "testplayer.h"
 #include "testscorestore.h"
 #include "testwordchecker.h"
+#include "testmainmenu.h"
+#include "testsession.h"
 
-#include <QCoreApplication>
+#include <QApplication>
 #include <QTest>
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication app(argc, argv);
+    QApplication app(argc, argv);
     Q_UNUSED(app);
 
     int failures = 0;
@@ -24,6 +26,12 @@ int main(int argc, char *argv[])
 
     TestWordChecker wordChecker;
     failures += QTest::qExec(&wordChecker, argc, argv);
+
+    TestMainMenu mainMenu;
+    failures += QTest::qExec(&mainMenu, argc, argv);
+
+    TestSession session;
+    failures += QTest::qExec(&session, argc, argv);
 
     return failures;
 }
