@@ -24,23 +24,165 @@ on:
         default: debug
 
 jobs:
-  build-ubuntu:
-    name: Build (ubuntu-${{ github.event.inputs.build_type || 'debug' }})
-    if: github.event_name == 'push' || github.event.inputs.os == 'ubuntu'
-    uses: ./.github/workflows/build-ubuntu.yml
-    with:
-      build_type: ${{ github.event.inputs.build_type || 'debug' }}
+  # ── Ubuntu ──────────────────────────────────────────────
+  build-ubuntu-debug:
+    name: Build (ubuntu-debug)
+    if: github.event_name == 'push' || (github.event.inputs.os == 'ubuntu' && github.event.inputs.build_type == 'debug')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build debug
+        run: make -j8
+      - name: Verify debug build artifacts
+        run: |
+          test -f jumble
+          echo "Built (debug): jumble"
 
-  build-macos:
-    name: Build (macos-${{ github.event.inputs.build_type || 'debug' }})
-    if: github.event_name != 'push' && github.event.inputs.os == 'macos'
-    uses: ./.github/workflows/build-macos.yml
-    with:
-      build_type: ${{ github.event.inputs.build_type || 'debug' }}
+  build-ubuntu-release:
+    name: Build (ubuntu-release)
+    if: github.event_name != 'push' && github.event.inputs.os == 'ubuntu' && github.event.inputs.build_type == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5 build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential qtbase5-dev
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build release
+        run: make -j8
+      - name: Verify release build artifacts
+        run: |
+          test -f jumble
+          echo "Built (release): jumble"
 
-  build-windows:
-    name: Build (windows-${{ github.event.inputs.build_type || 'debug' }})
-    if: github.event_name != 'push' && github.event.inputs.os == 'windows'
-    uses: ./.github/workflows/build-windows.yml
-    with:
-      build_type: ${{ github.event.inputs.build_type || 'debug' }}
+  # ── macOS ───────────────────────────────────────────────
+  build-macos-debug:
+    name: Build (macos-debug)
+    if: github.event_name != 'push' && github.event.inputs.os == 'macos' && github.event.inputs.build_type == 'debug'
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build debug
+        run: make -j8
+      - name: Verify debug build artifacts
+        run: |
+          test -f jumble
+          echo "Built (debug): jumble"
+      - name: Prepare artifact directory
+        run: |
+          rm -rf jumble-macos-arm64-debug
+          mkdir -p jumble-macos-arm64-debug
+          cp jumble jumble-macos-arm64-debug/
+          cp dictionary.txt jumble-macos-arm64-debug/
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jumble-macos-arm64-debug
+          path: jumble-macos-arm64-debug
+          if-no-files-found: error
+
+  build-macos-release:
+    name: Build (macos-release)
+    if: github.event_name != 'push' && github.event.inputs.os == 'macos' && github.event.inputs.build_type == 'release'
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build release
+        run: make -j8
+      - name: Verify build artifact
+        run: |
+          test -f jumble
+          echo "Built: jumble"
+      - name: Prepare artifact directory
+        run: |
+          rm -rf jumble-macos-arm64-release
+          mkdir -p jumble-macos-arm64-release
+          cp jumble jumble-macos-arm64-release/
+          cp dictionary.txt jumble-macos-arm64-release/
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jumble-macos-arm64-release
+          path: jumble-macos-arm64-release
+          if-no-files-found: error
+
+  # ── Windows ─────────────────────────────────────────────
+  build-windows-debug:
+    name: Build (windows-debug)
+    if: github.event_name != 'push' && github.event.inputs.os == 'windows' && github.event.inputs.build_type == 'debug'
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure debug build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build debug
+        run: make -j8
+      - name: Verify debug build artifacts
+        run: |
+          if (-Not (Test-Path jumble.exe)) { exit 1 }
+          echo "Built (debug): jumble.exe"
+
+  build-windows-release:
+    name: Build (windows-release)
+    if: github.event_name != 'push' && github.event.inputs.os == 'windows' && github.event.inputs.build_type == 'release'
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install Qt 5
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '5.15.*'
+          cache: 'true'
+      - name: Verify qmake is available
+        run: qmake --version
+      - name: Configure release build with qmake
+        run: qmake -r Jumble.pro
+      - name: Build release
+        run: make -j8
+      - name: Verify release build artifacts
+        run: |
+          if (-Not (Test-Path jumble.exe)) { exit 1 }
+          echo "Built (release): jumble.exe"
