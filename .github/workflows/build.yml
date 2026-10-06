@@ -1,0 +1,8 @@
+name: Build
+
+on:
+  push:
+
+jobs:
+  build-ubuntu-debug:
+    uses: ./.github/workflows/build-ubuntu-debug.yml
