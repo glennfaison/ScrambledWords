@@ -27,3 +27,8 @@ build/
 *.dat
 *.backup
 highScores.*
+# qmake stash and test outputs
+.qmake.stash
+build-tests/
+visual-output/
+tst_visual

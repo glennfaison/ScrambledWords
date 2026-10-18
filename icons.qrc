@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/controls.ico</file>
+        <file>icons/default_profile_picture.png</file>
+    </qresource>
+</RCC>

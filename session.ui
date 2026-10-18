@@ -892,7 +892,7 @@ background-color: rgb(255, 255, 255);</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image:url(&quot;D:/Documents/MyPrograms/QT/build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/default_profile_picture.png&quot;);
+     <string notr="true">background-image:url(&quot;:/icons/default_profile_picture.png&quot;);
 
 </string>
     </property>
@@ -985,7 +985,7 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionControls">
    <property name="icon">
     <iconset>
-     <normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/controls.ico</normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/controls.ico</iconset>
+     <normaloff>:/icons/controls.ico</normaloff>:/icons/controls.ico</iconset>
    </property>
    <property name="text">
     <string>Controls</string>
@@ -993,6 +993,8 @@ background-color: rgb(255, 255, 255);</string>
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections/>
 </ui>
