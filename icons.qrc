@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/app.png</file>
+        <file>icons/cancel.png</file>
+        <file>icons/clear.png</file>
+        <file>icons/controls.ico</file>
+        <file>icons/default_profile_picture.png</file>
+        <file>icons/exit.ico</file>
+        <file>icons/guest.ico</file>
+        <file>icons/help.ico</file>
+        <file>icons/login.ico</file>
+        <file>icons/new_game.png</file>
+        <file>icons/notes.png</file>
+        <file>icons/ok.png</file>
+        <file>icons/signup.ico</file>
+    </qresource>
+</RCC>

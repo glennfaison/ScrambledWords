@@ -38,6 +38,8 @@ FORMS    += session.ui \
     logindialog.ui \
     signupdialog.ui
 
+RESOURCES += icons.qrc
+
 OTHER_FILES += \
     dictionary.txt
 
