@@ -65,7 +65,7 @@ void MainMenu::setUpTabWidget()
     // clear tab
     ui->tabWidget->clear();
     // set up the first tab
-    QString icon("C:/Program Files (x86)/Microsoft Office/Office14/FORMS/1036/POSTITS.ICO");
+    QString icon(":/icons/notes.png");
     ui->tabWidget->insertTab(0, ui->listWidget,
                              QIcon(icon),
                              "Current Accounts");
@@ -88,7 +88,7 @@ void MainMenu::setUpTabWidget()
 
     // set up the second tab
     treeWidget = new QTreeWidget(this);
-    QString icon2("C:/Program Files (x86)/Microsoft Office/Office14/FORMS/1036/POSTITS.ICO");
+    QString icon2(":/icons/notes.png");
     ui->tabWidget->insertTab(1, treeWidget, QIcon(icon2), "High Scores");
     QList<Player::HiScoreEntry> hs = Player::loadGeneralHiScores();
     treeWidget->clear();

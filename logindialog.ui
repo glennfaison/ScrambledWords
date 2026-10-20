@@ -27,7 +27,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>C:/Program Files (x86)/CodeBlocks/share/CodeBlocks/templates/wizard/plugins/logo.png</normaloff>C:/Program Files (x86)/CodeBlocks/share/CodeBlocks/templates/wizard/plugins/logo.png</iconset>
+    <normaloff>:/icons/app.png</normaloff>:/icons/app.png</iconset>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -81,7 +81,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/pics/x.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/declarative/toys/tic-tac-toe/qml/tic-tac-toe/content/pics/x.png</iconset>
+     <normaloff>:/icons/cancel.png</normaloff>:/icons/cancel.png</iconset>
    </property>
   </widget>
   <widget class="QPushButton" name="okButton">
@@ -98,7 +98,7 @@
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/tools/undo/icons/ok.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/tools/undo/icons/ok.png</iconset>
+     <normaloff>:/icons/ok.png</normaloff>:/icons/ok.png</iconset>
    </property>
   </widget>
   <widget class="QLabel" name="titleLabel">
@@ -129,7 +129,9 @@
   <tabstop>okButton</tabstop>
   <tabstop>cancelButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>cancelButton</sender>

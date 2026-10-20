@@ -10,6 +10,8 @@
 // (default: ./visual-output) so they can be inspected or uploaded by CI.
 
 #include <QtTest>
+#include <QAbstractButton>
+#include <QAction>
 #include <QApplication>
 #include <QDir>
 #include <QFile>
@@ -82,6 +84,7 @@ private slots:
     void logInDialog();
     void signUpDialog();
     void sessionIdle();
+    void iconsResolve();
 
 private:
     void compare(QWidget *widget, const QString &name);
@@ -207,6 +210,32 @@ void VisualTest::sessionIdle()
     // Before "New Game" is pressed the board is empty and deterministic.
     Session w("GUEST");
     compare(&w, "session_idle");
+}
+
+// Every icon referenced by the windows must come from an embedded resource
+// and load, so no button or menu entry renders blank.
+void VisualTest::iconsResolve()
+{
+    QList<QWidget *> windows;
+    MainMenu menu; windows << &menu;
+    LogInDialog login; windows << &login;
+    SignUpDialog signup; windows << &signup;
+    Session session("GUEST"); windows << &session;
+    for (QWidget *w : windows) {
+        QVERIFY2(!w->windowIcon().isNull(), qPrintable(w->metaObject()->className()));
+        for (QAbstractButton *b : w->findChildren<QAbstractButton *>()) {
+            if (b->icon().isNull()) continue;
+            QVERIFY2(!b->icon().pixmap(16).isNull(), qPrintable(b->objectName()));
+        }
+        for (QAction *a : w->findChildren<QAction *>()) {
+            if (a->icon().isNull()) continue;
+            QVERIFY2(!a->icon().pixmap(16).isNull(), qPrintable(a->objectName()));
+        }
+    }
+    QDir icons(":/icons");
+    QVERIFY(icons.exists());
+    for (const QString &f : icons.entryList(QDir::Files))
+        QVERIFY2(!QIcon(":/icons/" + f).pixmap(16).isNull(), qPrintable(f));
 }
 
 int main(int argc, char **argv)

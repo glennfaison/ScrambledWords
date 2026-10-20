@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>C:/Program Files (x86)/CodeBlocks/share/CodeBlocks/templates/wizard/plugins/logo.png</normaloff>C:/Program Files (x86)/CodeBlocks/share/CodeBlocks/templates/wizard/plugins/logo.png</iconset>
+    <normaloff>:/icons/app.png</normaloff>:/icons/app.png</iconset>
   </property>
   <property name="locale">
    <locale language="English" country="Cameroon"/>
@@ -35,7 +35,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/graphicsview/chip/rotateleft.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/graphicsview/chip/rotateleft.png</iconset>
+      <normaloff>:/icons/new_game.png</normaloff>:/icons/new_game.png</iconset>
     </property>
    </widget>
    <widget class="QLabel" name="sessionScoreLabel">
@@ -120,7 +120,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/tools/undo/icons/ok.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/tools/undo/icons/ok.png</iconset>
+      <normaloff>:/icons/ok.png</normaloff>:/icons/ok.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="letterButton_6">
@@ -730,7 +730,7 @@ background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/mainwindows/dockwidgets/images/undo.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/mainwindows/dockwidgets/images/undo.png</iconset>
+      <normaloff>:/icons/clear.png</normaloff>:/icons/clear.png</iconset>
     </property>
    </widget>
    <widget class="Line" name="line_3">
@@ -879,7 +879,7 @@ background-color: rgb(255, 255, 255);</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/exit.ico</normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/exit.ico</iconset>
+      <normaloff>:/icons/exit.ico</normaloff>:/icons/exit.ico</iconset>
     </property>
    </widget>
    <widget class="QGraphicsView" name="graphicsView">
@@ -942,7 +942,7 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionNew_Game">
    <property name="icon">
     <iconset>
-     <normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/graphicsview/chip/rotateleft.png</normaloff>C:/Qt/Qt5.0.2/5.0.2/mingw47_32/examples/widgets/graphicsview/chip/rotateleft.png</iconset>
+     <normaloff>:/icons/new_game.png</normaloff>:/icons/new_game.png</iconset>
    </property>
    <property name="text">
     <string>New Game</string>
@@ -954,7 +954,7 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionBack">
    <property name="icon">
     <iconset>
-     <normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/exit.ico</normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/exit.ico</iconset>
+     <normaloff>:/icons/exit.ico</normaloff>:/icons/exit.ico</iconset>
    </property>
    <property name="text">
     <string>Back</string>
@@ -966,7 +966,7 @@ background-color: rgb(255, 255, 255);</string>
   <action name="actionRules_of_the_Game">
    <property name="icon">
     <iconset>
-     <normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/help.ico</normaloff>../build-Jumble-Desktop_Qt_5_4_1_MSVC2012_OpenGL_32bit-Release/icons/help.ico</iconset>
+     <normaloff>:/icons/help.ico</normaloff>:/icons/help.ico</iconset>
    </property>
    <property name="text">
     <string>Rules of the Game!</string>
