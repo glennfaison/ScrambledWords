@@ -31,7 +31,7 @@ concurrency:
 
 jobs:
   # Works out which OS / build-type combinations to run.
-  # push + pull_request: every OS in debug. workflow_dispatch: what was picked.
+  # push + pull_request: every OS in debug and release; dispatch: what was picked.
   plan:
     name: Plan build matrix
     runs-on: ubuntu-latest
@@ -42,14 +42,16 @@ jobs:
         shell: bash
         run: |
           os="${{ github.event.inputs.os || 'all' }}"
-          type="${{ github.event.inputs.build_type || 'debug' }}"
+          type="${{ github.event.inputs.build_type }}"
           if [ "$os" = "all" ]; then oses='"ubuntu","macos","windows"'; else oses="\"$os\""; fi
-          echo "matrix={\"os\":[$oses],\"build_type\":[\"$type\"]}" >> "$GITHUB_OUTPUT"
+          if [ -z "$type" ]; then types='"debug","release"'; else types="\"$type\""; fi
+          echo "matrix={\"os\":[$oses],\"build_type\":[$types]}" >> "$GITHUB_OUTPUT"
 
   build:
     name: Build (${{ matrix.os }}-${{ matrix.build_type }})
     needs: plan
-    runs-on: ${{ matrix.os }}-latest
+    # Test the Intel Mac build natively rather than mislabelling it ARM64.
+    runs-on: ${{ matrix.os == 'macos' && 'macos-15-intel' || format('{0}-latest', matrix.os) }}
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.plan.outputs.matrix) }}
@@ -63,11 +65,19 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential qtbase5-dev
-      - name: Install Qt 5 (macos / windows)
-        if: matrix.os != 'ubuntu'
+      - name: Install Qt 5 (windows)
+        if: matrix.os == 'windows'
         uses: jurplel/install-qt-action@v4
         with:
           version: '5.15.*'
+          cache: 'true'
+      - name: Install Qt 6 (macos)
+        if: matrix.os == 'macos'
+        uses: jurplel/install-qt-action@v4
+        with:
+          # Qt 5.15.2's prebuilt Cocoa plugin still links removed AGL.
+          version: '6.10.1'
+          arch: 'clang_64'
           cache: 'true'
       - name: Set up MSVC (windows)
         if: matrix.os == 'windows'
@@ -111,13 +121,26 @@ jobs:
       # ── Package (macOS) ────────────────────────────────
       - name: Bundle Qt frameworks with macdeployqt
         if: matrix.os == 'macos'
-        run: macdeployqt jumble.app -verbose=1
+        run: |
+          macdeployqt jumble.app -verbose=2
+          codesign --force --deep --sign - jumble.app
       - name: Prepare macOS artifact
         if: matrix.os == 'macos'
         run: |
-          name=jumble-macos-${{ runner.arch }}-${{ matrix.build_type }}
+          arch=$(lipo -archs jumble.app/Contents/MacOS/jumble | tr ' ' '-')
+          name=jumble-macos-$arch-${{ matrix.build_type }}
           echo "ARTIFACT_NAME=$name" >> "$GITHUB_ENV"
-          zip -qr "$name.zip" jumble.app dictionary.txt
+          staging=$(mktemp -d)
+          ditto jumble.app "$staging/jumble.app"
+          cp dictionary.txt "$staging/"
+          ditto -c -k --sequesterRsrc "$staging" "$name.zip"
+      - name: Test the extracted macOS artifact
+        if: matrix.os == 'macos'
+        run: |
+          python3 -m unittest discover -s tests/macos -p 'test_*.py' -v
+          extracted=$(mktemp -d)
+          ditto -x -k "$ARTIFACT_NAME.zip" "$extracted"
+          python3 tests/macos/verify_bundle.py "$extracted/jumble.app"
       - name: Upload macOS artifact
         if: matrix.os == 'macos'
         uses: actions/upload-artifact@v4
